@@ -8,7 +8,9 @@
 #define STAPSK  "acquaiolo"
 #endif
 
-
+namespace connect{
 void wifi_setup();
 void ota_setup();
-void connection();
+void loop();
+void setup();
+}
