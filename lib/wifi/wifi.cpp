@@ -10,7 +10,6 @@ void connection(){
 
 void wifi_setup(){
   Serial.begin(115200);
-  //IPAddress local_IP (192,168,100,4);
   Serial.println("\nBooting");
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
