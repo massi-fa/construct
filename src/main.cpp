@@ -7,6 +7,12 @@
 
 using namespace std;
 
+
+/*
+*   Channel
+*/
+
+
 const char* channel0 = "dht";
 const char* channel1 = "logs";
 const char* channel2 = "lights";
@@ -30,15 +36,6 @@ float temp; //Stores temperature value
 
 const char* channelCommands = "sensors/commands";
 const char* clientName = "ESP--sensors";
-
-void ac_sp(){
-  Serial.println("led acceso");
-  digitalWrite(D0, HIGH);
-};
-void sp_ac(){
-  digitalWrite(D0, LOW);
-};
-
 void sense(){
     ostringstream s2, s1;
     hum = dht.readHumidity();
@@ -51,7 +48,8 @@ void sense(){
     Serial.print(temp);
     s2 << temp;
     Serial.println(" Celsius");
-    string message = "temp= " + s2.str() + "hum= " + s1.str();
+    string message = "Temperatura= " + s2.str() + "C^" + " Umidità= " + s1.str() + "%";
+  
     mqtt::client.publish(channel0,message.c_str());
 }
 
@@ -63,6 +61,26 @@ inline void mainLoop() {
     lastRun = millis();
   }
 }
+
+/*************************************************************************************************************/
+
+
+
+void ac_sp(){
+  Serial.println("led acceso");
+  digitalWrite(D0, HIGH);
+};
+void sp_ac(){
+  digitalWrite(D0, LOW);
+};
+
+
+
+
+
+/*
+*   Funzione gestione mqtt (topic=channel)  (Payload=message) 
+*/
 
 
 void callback(char* topic, byte* payload, unsigned int length) {
@@ -86,14 +104,22 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
 }
 
+/*
+*  Setup Main
+*/
+
 
 void setup() {
   dht.begin();
   connect::setup();
-  Serial.println("ciao");
   mqtt::setup(clientName, subscriptions, callback);
   pinMode(D0, OUTPUT);
 }
+
+/*
+*  Loop Main
+*/
+
 
 void loop() {
   connect::loop();

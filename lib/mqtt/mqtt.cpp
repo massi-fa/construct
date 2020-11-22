@@ -52,7 +52,7 @@ namespace mqtt {
             } else {
                 Serial.println("failed, rc=");
                 Serial.print(client.state());
-                Serial.println(" try again in 5 seconds");
+                Serial.print(" try again in 5 seconds");
                 // Wait 3 seconds before retrying
                 delay(3000);
             }
