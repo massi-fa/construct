@@ -68,10 +68,10 @@ inline void mainLoop() {
 
 void ac_sp(){
   Serial.println("led acceso");
-  digitalWrite(D0, HIGH);
+  digitalWrite(D4, HIGH);
 };
 void sp_ac(){
-  digitalWrite(D0, LOW);
+  digitalWrite(D4, LOW);
 };
 
 
@@ -113,7 +113,7 @@ void setup() {
   dht.begin();
   connect::setup();
   mqtt::setup(clientName, subscriptions, callback);
-  pinMode(D0, OUTPUT);
+  pinMode(D4, OUTPUT);
 }
 
 /*
